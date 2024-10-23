@@ -55,13 +55,25 @@ local function creat_env_menu()
 			submit = { "<CR>", "<Space>" },
 		},
 		on_close = function()
-			print("Cancelled env selection")
+			print("Cancelled selecting env")
 		end,
 		on_submit = function(item)
 			print("Activating env: ", item.text)
 			M.current_env = item.text
 		end,
 	})
+end
+
+-- Return environment flag for currently activated environment or emptry string
+-- if no env is activated (Default). For use in passing to pio commands.
+function M.cmd_env_flag()
+	local current_env = M.current_env
+	local env_flag = ""
+
+	if current_env ~= M.default_env then
+		env_flag = "-e " .. current_env
+	end
+	return env_flag
 end
 
 function M.env_menu()
