@@ -76,7 +76,7 @@ function M.cmd_env_flag()
     return env_flag
 end
 
-function M.env_menu()
+function M.pioenv()
     creat_env_menu():mount()
 end
 
