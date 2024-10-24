@@ -46,22 +46,22 @@ local function creat_env_menu()
             winhighlight = "Normal:Normal,FloatBorder:Normal",
         },
     }, {
-            lines = env_items,
-            max_width = 200,
-            keymap = {
-                focus_next = { "j", "<Down>", "<Tab>" },
-                focus_prev = { "k", "<Up>", "<S-Tab>" },
-                close = { "<Esc>", "<C-c>" },
-                submit = { "<CR>", "<Space>" },
-            },
-            on_close = function()
-                print("Cancelled selecting env")
-            end,
-            on_submit = function(item)
-                print("Activating env: ", item.text)
-                M.current_env = item.text
-            end,
-        })
+        lines = env_items,
+        max_width = 200,
+        keymap = {
+            focus_next = { "j", "<Down>", "<Tab>" },
+            focus_prev = { "k", "<Up>", "<S-Tab>" },
+            close = { "<Esc>", "<C-c>" },
+            submit = { "<CR>", "<Space>" },
+        },
+        on_close = function()
+            print("Cancelled selecting env")
+        end,
+        on_submit = function(item)
+            print("Activating env: ", item.text)
+            M.current_env = item.text
+        end,
+    })
 end
 
 -- Return environment flag for currently activated environment or emptry string

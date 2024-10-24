@@ -74,9 +74,9 @@ local function pick_library(json_data)
                     local bufnr = self.state.bufnr
                     vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, json)
                     vim.defer_fn(function()
-                        vim.api.nvim_buf_set_option(bufnr, 'wrap', true)
-                        vim.api.nvim_buf_set_option(bufnr, 'linebreak', true)
-                        vim.api.nvim_buf_set_option(bufnr, 'wrapmargin', 2)
+                        vim.api.nvim_buf_set_option(bufnr, "wrap", true)
+                        vim.api.nvim_buf_set_option(bufnr, "linebreak", true)
+                        vim.api.nvim_buf_set_option(bufnr, "wrapmargin", 2)
                     end, 0)
                 end,
             }),
@@ -115,10 +115,10 @@ function M.piolib(lib_arg_list)
     else
         vim.notify(
             "API Request to platformio return HTTP code: "
-            .. res["status"]
-            .. "\nplease run `curl -LI "
-            .. url
-            .. "` for complete information",
+                .. res["status"]
+                .. "\nplease run `curl -LI "
+                .. url
+                .. "` for complete information",
             vim.log.levels.ERROR
         )
     end

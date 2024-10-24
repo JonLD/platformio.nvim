@@ -120,7 +120,7 @@ end
 
 function M.pio_install_check()
     local handel = (jit.os == "Windows") and assert(io.popen("where.exe pio 2>./nul"))
-    or assert(io.popen("which pio 2>/dev/null"))
+        or assert(io.popen("which pio 2>/dev/null"))
     local pio_path = assert(handel:read("*a"))
     handel:close()
 
