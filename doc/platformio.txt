@@ -1,8 +1,12 @@
-*platformio.lua* Wrapper of PlatformIO for Neovim
+*platformio.nvim* Wrapper of PlatformIO for Neovim
 
-Author:  Anurag Kumar Singh
-Repo:    https://github.com/anurag3301/nvim-platformio.lua
+Author:  Jonathan Lloyd Davies
+Repo:    https://github.com/JonLD/platformio.nvim
 License: MIT
+
+Forked from
+Repo:    https://github.com/anurag3301/nvim-platformio.lua
+Author:  Anurag Kumar Singh
 
 INTRODUCTION                                                   *PlatformIO*
 
