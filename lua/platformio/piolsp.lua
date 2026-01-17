@@ -13,6 +13,7 @@ local function escape_flags(flags)
     -- Escape parentheses (common in include paths)
     escaped = escaped:gsub('%(', '\\(')
     escaped = escaped:gsub('%)', '\\)')
+    escaped = escaped:gsub('%s+', '\\ ')
     table.insert(escaped_flags, escaped)
   end
 
