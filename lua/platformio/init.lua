@@ -5,8 +5,11 @@ M.config = {
   menu_name = 'PlatformIO',
   debug = false,
   clangd_source = 'ccls',
+  picker = 'auto', -- 'auto', 'snacks', 'telescope'
+  terminal = 'auto', -- 'auto', 'snacks', 'toggleterm'
 
   menu_bindings = {
+    { node = 'item', desc = '[E]nvironment', shortcut = 'e', command = 'Pioenv' },
     { node = 'item', desc = '[L]ist terminals', shortcut = 'l', command = 'PioTermList' },
     { node = 'item', desc = '[T]erminal Core CLI', shortcut = 't', command = 'Piocmdf' },
     {
@@ -85,8 +88,6 @@ M.config = {
         { node = 'item', desc = '[U]pgrade PlatformIO Core', shortcut = 'u', command = 'Piocmdf upgrade' },
       },
     },
-    --   }, --
-    -- }, --
   },
 }
 
@@ -160,6 +161,8 @@ function M.setup(user_config)
       menu_bindings = true,
       debug = true,
       clangd_source = true,
+      picker = true,
+      terminal = true,
     }
     local err = false
     for key, value in pairs(user_config or {}) do

@@ -30,12 +30,6 @@ function M.piomenu(config)
     return
   end
 
-  wk.setup({
-    preset = 'helix', --'modern', --'classic'
-  })
-  local Config = require('which-key.config')
-  Config.sort = { 'order', 'group', 'manual', 'mod' }
-
   table.insert(wk_table, { config.menu_key, group = config.menu_name, icon = icon })
 
   traverseMenu(config.menu_bindings, config.menu_key)
