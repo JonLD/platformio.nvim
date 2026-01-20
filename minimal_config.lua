@@ -55,14 +55,12 @@ local plugins = {
       return vim.g.platformioRootDir ~= nil
     end,
 
-    -- Dependencies are lazy-loaded by default unless specified otherwise.
+    -- Dependencies: Only these 2 are required, others are auto-detected
     dependencies = {
-      { 'akinsho/toggleterm.nvim' },
-      { 'nvim-telescope/telescope.nvim' },
-      { 'nvim-telescope/telescope-ui-select.nvim' },
-      { 'nvim-lua/plenary.nvim' },
       { 'folke/which-key.nvim' },
-      { 'nvim-treesitter/nvim-treesitter' },
+      { 'nvim-lua/plenary.nvim' },
+      -- Optional: uncomment for better UI
+      { 'folke/snacks.nvim' },  -- recommended
     },
   },
 }
@@ -78,7 +76,7 @@ vim.opt['number'] = true
 vim.g.pioConfig = {
   lsp = 'clangd', -- value: clangd | ccls
   clangd_source = 'ccls', -- value: ccls | compiledb, For detailed explation check :help platformio-clangd_source
-  menu_key = '<leader>\\', -- replace this menu key  to your convenience
+  menu_key = '<leader>p', -- replace this menu key  to your convenience
   debug = false, -- enable debug messages
 }
 local pok, platformio = pcall(require, 'platformio')

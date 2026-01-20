@@ -8,6 +8,11 @@ function M.piocmd(cmd_table, direction)
 
   utils.cd_pioini()
 
+  -- Default to right (vertical) if no direction specified
+  if not direction then
+    direction = 'right'
+  end
+
   if cmd_table[1] == '' then
     utils.ToggleTerminal('', direction)
   else

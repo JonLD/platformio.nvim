@@ -72,14 +72,17 @@ return {
   end,
 
   -- Dependencies are lazy-loaded by default unless specified otherwise.
+  -- Minimal required dependencies:
   dependencies = {
-    { 'akinsho/toggleterm.nvim' },
-    { 'nvim-telescope/telescope.nvim' },
-    { 'nvim-telescope/telescope-ui-select.nvim' },
-    { 'nvim-lua/plenary.nvim' },
-    { 'folke/which-key.nvim' },
-    { 'nvim-treesitter/nvim-treesitter' }
+    { 'folke/which-key.nvim' },  -- for command menu
+    { 'nvim-lua/plenary.nvim' },  -- for library search
   },
+
+  -- Optional: Add one of these for better UI (auto-detected):
+  -- { 'folke/snacks.nvim' },  -- recommended: modern picker + terminal
+  -- OR
+  -- { 'nvim-telescope/telescope.nvim' },  -- legacy picker
+  -- { 'akinsho/toggleterm.nvim' },  -- legacy terminal
 }
 ```
 
@@ -87,15 +90,27 @@ return {
 
 ### Configuration
 ```lua
-vim.g.pioConfig ={
-  lsp = 'clangd',           -- value: clangd | ccls 
+vim.g.pioConfig = {
+  lsp = 'clangd',            -- value: clangd | ccls
   clangd_source = 'ccls',    -- value: ccls | compiledb, For detailed explation check :help platformio-clangd_source
-  menu_key = '<leader>\\',  -- replace this menu key  to your convenience
-  debug = false             -- enable debug messages
-} 
+  menu_key = '<leader>\\',   -- replace this menu key to your convenience
+  debug = false,             -- enable debug messages
+  picker = 'auto',           -- value: 'auto' | 'snacks' | 'telescope'
+  terminal = 'auto',         -- value: 'auto' | 'snacks' | 'toggleterm'
+}
 local pok, platformio = pcall(require, 'platformio')
 if pok then platformio.setup(vim.g.pioConfig) end
 ```
+
+**Backend options:**
+- `picker`: Choose UI picker for board/library selection
+  - `'auto'` (default): Auto-detect snacks → telescope (requires one installed)
+  - `'snacks'`: Use folke/snacks.nvim (recommended)
+  - `'telescope'`: Use nvim-telescope/telescope.nvim
+- `terminal`: Choose terminal implementation
+  - `'auto'` (default): Auto-detect snacks → toggleterm (requires one installed)
+  - `'snacks'`: Use folke/snacks.nvim (recommended)
+  - `'toggleterm'`: Use akinsho/toggleterm.nvim
 
 ### Keybinds
 These are the default keybindings, which you can override in your configuration.
