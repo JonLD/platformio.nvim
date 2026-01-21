@@ -1,4 +1,29 @@
 local M = {}
+---@alias TerminalDirection 'float'|'horizontal'|'vertical'
+
+---@class PlatformIOConfig
+---@field lsp 'ccls'|'clangd'
+---@field menu_key string?
+---@field menu_name string
+---@field debug boolean
+---@field clangd_source 'ccls'|'compiledb'
+---@field picker 'auto'|'snacks'|'telescope'
+---@field terminal 'auto'|'snacks'|'toggleterm'
+---@field default_terminal_style? TerminalDirection
+---@field menu_bindings (MenuNode|ItemNode)[]
+---
+---@class MenuNode
+---@field node 'menu'
+---@field desc string
+---@field shortcut string
+---@field items (MenuNode|ItemNode)[]
+---
+---@class ItemNode
+---@field node 'item'
+---@field desc string
+---@field shortcut string
+---@field command string
+---@field terminal_style? TerminalDirection
 M.config = {
   lsp = 'ccls',
   menu_key = nil,
@@ -7,6 +32,7 @@ M.config = {
   clangd_source = 'ccls',
   picker = 'auto', -- 'auto', 'snacks', 'telescope'
   terminal = 'auto', -- 'auto', 'snacks', 'toggleterm'
+  default_terminal_style = 'vertical',
 
   menu_bindings = {
     { node = 'item', desc = '[E]nvironment', shortcut = 'e', command = 'Pioenv' },

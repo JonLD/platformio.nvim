@@ -51,21 +51,32 @@ function M.select(items, opts, callback)
 end
 
 -- Terminal implementation
+---@param command string
+---@param opts {win: {direction: TerminalDirection, title: string, height: number, width: number?, border: string, wo: table}, on_exit: function}
 function M.terminal(command, opts)
   local backend = resolve_backend('terminal')
 
   if backend == 'snacks' then
-    return Snacks.terminal(command, opts)
+    -- Convert direction to snacks position format
+    ---@type TerminalDirection
+    local direction = opts.win and opts.win.direction or 'vertical'
+    ---@type 'float'|'bottom'|'right'
+    local position
+    if direction == 'horizontal' then
+      position = 'bottom'
+    elseif direction == 'vertical' then
+      position = 'right'
+    else -- 'float'
+      position = 'float'
+    end
+    local snacks_opts = {
+      win = vim.tbl_deep_extend('force', opts.win, { position = position, direction = vim.NIL }),
+      on_exit = opts.on_exit
+    }
+    return Snacks.terminal(command, snacks_opts)
   elseif backend == 'toggleterm' then
     local Terminal = require('toggleterm.terminal').Terminal
-    local position_map = {
-      right = 'vertical',
-      left = 'vertical',
-      top = 'horizontal',
-      bottom = 'horizontal',
-      float = 'float',
-    }
-    local direction = opts.win and position_map[opts.win.position] or 'float'
+    local direction = opts.win and opts.win.direction or 'float'
 
     local term = Terminal:new({
       cmd = command,
@@ -139,7 +150,9 @@ function M.enter()
 end
 
 ------------------------------------------------------
--- INFO: SnacksTerminal - replacement for ToggleTerminal
+---@param command string
+---@param direction? TerminalDirection
+---@param exit_callback? fun()
 function M.ToggleTerminal(command, direction, exit_callback)
   if type(exit_callback) ~= 'function' then
     exit_callback = function() end
@@ -166,26 +179,19 @@ function M.ToggleTerminal(command, direction, exit_callback)
     return
   end
 
-  -- Determine position based on direction
-  -- Supports: 'float', 'horizontal' (bottom), 'right', 'left', 'top'
-  local position = direction
-  if direction == 'horizontal' then
-    position = 'bottom'
-  elseif not direction or direction == 'vertical' then
-    position = 'float'
-  end
+  -- Default direction if not provided
+  direction = direction or 'vertical'
 
   local title = is_monitor
     and 'Pio Monitor: [Esc then q to hide, Ctrl-c to force hide]'
     or 'Pio CLI: [Esc then q to hide, Ctrl-c to force hide]'
 
-  -- Create new terminal
   local term = M.terminal(command, {
     win = {
-      position = position,
+      direction = direction,
       title = title,
-      height = position == 'float' and 0.85 or 0.3,
-      width = position == 'float' and 0.85 or nil,
+      height = direction == 'float' and 0.85 or 0.3,
+      width = direction == 'float' and 0.85 or nil,
       border = 'rounded',
       wo = {
         winbar = '',

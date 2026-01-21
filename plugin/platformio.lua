@@ -86,7 +86,7 @@ end, {
 -- Piocmdv    Piocmd vertical (right) terminal
 vim.api.nvim_create_user_command('Piocmdv', function(opts)
   local cmd_table = vim.split(opts.args, ' ')
-  require('platformio.piocmd').piocmd(cmd_table, 'right')
+  require('platformio.piocmd').piocmd(cmd_table, 'vertical')
 end, {
   nargs = '*',
 })

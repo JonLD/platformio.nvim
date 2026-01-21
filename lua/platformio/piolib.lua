@@ -28,7 +28,7 @@ local function pick_library(json_data)
     if choice then
       local pkg_name = choice.owner .. '/' .. choice.name
       local command = 'pio pkg install --library "' .. pkg_name .. '"'
-      utils.ToggleTerminal(command, 'right', function()
+      utils.ToggleTerminal(command, 'vertical', function()
         vim.cmd(':PioLSP')
       end)
     end
